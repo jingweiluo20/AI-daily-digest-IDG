@@ -21,7 +21,7 @@ function isRecent(dateStr) {
   if (!dateStr) return true;
   const articleDate = new Date(dateStr);
   const now = new Date();
-  return (now - articleDate) < 48 * 60 * 60 * 1000;
+  return (now - articleDate) < 24 * 60 * 60 * 1000;
 }
 
 async function fetchArticleContent(url) {
