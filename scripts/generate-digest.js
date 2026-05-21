@@ -112,12 +112,13 @@ async function generateDigest(articles) {
   const prompt = `你是一个AI行业日报编辑。请根据以下今日文章列表，生成一份中文日报摘要。
 
 要求：
-1. 用markdown格式
+1. 不要用#号标题，用**加粗文字**作为分类标题
 2. 按主题分类（如：大模型动态、创业融资、产品发布、行业观点等）
-3. 每条新闻用1-2句话总结核心信息
+3. 每条新闻用1-2句话总结核心信息，用 - 开头作为列表项
 4. 开头写一段今日概览（3-5句话总结今天最重要的事）
-5. 结尾附上原文链接列表
+5. 结尾附上原文链接列表，格式为 [标题](链接)
 6. 语言简洁有力，适合快速阅读
+7. 分类之间用分割线 --- 隔开
 
 今日文章：
 ${articleText}`;
@@ -162,7 +163,7 @@ async function sendToFeishu(markdown) {
         elements: [
           {
             tag: 'markdown',
-            content: markdown.substring(0, 4000) // 飞书卡片有长度限制
+            content: markdown.replace(/^#{1,6}\s+/gm, '**').replace(/^(\*\*[^*]+)$/gm, '$1**').substring(0, 4000)
           },
           {
             tag: 'action',
