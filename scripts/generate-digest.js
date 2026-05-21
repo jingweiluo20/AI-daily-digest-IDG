@@ -43,6 +43,7 @@ async function fetchArticleContent(url) {
   }
 }
 
+// 抓取微信公众号
 async function fetchWechatFeeds() {
   const feedFile = path.join(__dirname, '..', 'feed-wechat.json');
   const feeds = JSON.parse(fs.readFileSync(feedFile, 'utf-8'));
@@ -70,33 +71,53 @@ async function fetchWechatFeeds() {
   return articles;
 }
 
-async function fetchBuildersFeed() {
+// 从 zarazhangrui/follow-builders 的 feed-x.json 抓取推文
+async function fetchBuildersTweets() {
   const articles = [];
   try {
-    const resp = await fetch('https://raw.githubusercontent.com/zarazhangrui/follow-builders/main/state-feed.json');
-    const text = await resp.text();
-    let data;
-    try {
-      data = JSON.parse(text);
-    } catch (e) {
-      console.log('[WARN] state-feed.json 解析失败');
-      return articles;
-    }
+    const resp = await fetch('https://raw.githubusercontent.com/zarazhangrui/follow-builders/main/feed-x.json');
+    const data = await resp.json();
+    const users = data.x || [];
 
-    const items = Array.isArray(data) ? data : (data.items || data.entries || []);
-    for (const item of items.slice(0, 30)) {
-      if (!isRecent(item.published || item.publishedAt || item.date)) continue;
+    for (const user of users) {
+      for (const tweet of (user.tweets || []).slice(0, 3)) {
+        if (!tweet.text || tweet.text.length < 20) continue;
+        articles.push({
+          type: 'builders',
+          source: `${user.name} (@${user.handle})`,
+          title: tweet.text.substring(0, 80) + (tweet.text.length > 80 ? '...' : ''),
+          link: tweet.url || `https://x.com/${user.handle}/status/${tweet.id}`,
+          summary: tweet.text,
+          date: tweet.createdAt || ''
+        });
+      }
+    }
+  } catch (e) {
+    console.log(`[WARN] 抓取 builders tweets 失败: ${e.message}`);
+  }
+  return articles;
+}
+
+// 从 feed-podcasts.json 抓取播客
+async function fetchBuildersPodcasts() {
+  const articles = [];
+  try {
+    const resp = await fetch('https://raw.githubusercontent.com/zarazhangrui/follow-builders/main/feed-podcasts.json');
+    const data = await resp.json();
+    const podcasts = data.podcasts || [];
+
+    for (const ep of podcasts.slice(0, 10)) {
       articles.push({
         type: 'builders',
-        source: item.author || item.source || 'AI Builders',
-        title: item.title || '无标题',
-        link: item.url || item.link || '',
-        summary: (item.description || item.content || item.text || '').substring(0, 500),
-        date: item.published || item.publishedAt || item.date || ''
+        source: ep.podcastName || ep.source || 'Podcast',
+        title: ep.title || '无标题',
+        link: ep.url || ep.link || '',
+        summary: (ep.description || ep.summary || '').substring(0, 500),
+        date: ep.publishedAt || ep.date || ''
       });
     }
   } catch (e) {
-    console.log(`[WARN] 抓取 builders feed 失败: ${e.message}`);
+    console.log(`[WARN] 抓取 builders podcasts 失败: ${e.message}`);
   }
   return articles;
 }
@@ -109,7 +130,7 @@ async function generateDigest(articles) {
     `${i + 1}. [来源:${a.source}] 标题:${a.title}\n   链接: ${a.link}\n   内容: ${a.summary}`
   ).join('\n\n');
 
-  const articleText = `=== 第一部分：公众号文章 ===\n${formatArticles(wechatList)}\n\n=== 第二部分：海外AI圈动态 ===\n${formatArticles(buildersList)}`;
+  const articleText = `=== 第一部分：国内AI资讯 ===\n${formatArticles(wechatList)}\n\n=== 第二部分：海外AI圈动态（推文+播客） ===\n${formatArticles(buildersList)}`;
 
   const prompt = `你是一个AI行业日报编辑。请根据以下今日文章列表，生成一份中文日报摘要。
 
@@ -122,7 +143,7 @@ async function generateDigest(articles) {
 6. 分类之间用空行隔开
 7. 语言简洁有力，适合快速阅读
 8. 不要在结尾单独列链接列表，链接已经跟在每条后面了
-9. 文章分为两个部分，请严格按顺序输出：先输出第一部分（公众号文章）的摘要，再输出第二部分（海外AI圈动态）的摘要，两部分之间用 --- 分割线隔开，不要标注内容来自哪个源或哪个人
+9. 文章分为两个部分，请严格按顺序输出：先输出第一部分（国内资讯）的摘要，再输出第二部分（海外动态）的摘要，两部分之间用 --- 分割线隔开，不要标注内容来自哪个源或哪个人
 
 今日文章：
 ${articleText}`;
@@ -182,16 +203,17 @@ async function sendToFeishu(markdown) {
 async function main() {
   console.log(`[${getTodayBeijing()}] 开始生成AI日报...`);
 
-  const [wechatArticles, buildersArticles] = await Promise.all([
+  const [wechatArticles, buildersTweets, buildersPodcasts] = await Promise.all([
     fetchWechatFeeds(),
-    fetchBuildersFeed()
+    fetchBuildersTweets(),
+    fetchBuildersPodcasts()
   ]);
 
-  const allArticles = [...wechatArticles, ...buildersArticles];
-  console.log(`[INFO] 共抓取 ${allArticles.length} 篇文章（微信${wechatArticles.length}篇 + Builders${buildersArticles.length}篇）`);
+  const allArticles = [...wechatArticles, ...buildersTweets, ...buildersPodcasts];
+  console.log(`[INFO] 共抓取 ${allArticles.length} 条（微信${wechatArticles.length} + 推文${buildersTweets.length} + 播客${buildersPodcasts.length}）`);
 
   if (allArticles.length === 0) {
-    console.log('[WARN] 今日无文章，跳过生成');
+    console.log('[WARN] 今日无内容，跳过生成');
     return;
   }
 
