@@ -18,7 +18,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd scripts
-          npm init -y
+          echo '{"name":"digest","private":true}' > package.json
           npm install rss-parser node-fetch@2
 
       - name: Generate digest
