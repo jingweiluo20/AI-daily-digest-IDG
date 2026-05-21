@@ -1,0 +1,43 @@
+name: Daily AI Digest
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          cd scripts
+          npm init -y
+          npm install rss-parser node-fetch@2
+
+      - name: Generate digest
+        env:
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL }}
+          FEISHU_WEBHOOK: ${{ secrets.FEISHU_WEBHOOK }}
+          WERSS_BASE_URL: ${{ secrets.WERSS_BASE_URL }}
+        run: node scripts/generate-digest.js
+
+      - name: Save digest
+        run: |
+          mkdir -p digests
+          DATE=$(TZ=Asia/Shanghai date +%Y-%m-%d)
+          if [ -f "digests/${DATE}.md" ]; then
+            git config user.name "github-actions"
+            git config user.email "actions@github.com"
+            git add digests/
+            git commit -m "Add digest ${DATE}" || true
+            git push || true
+          fi
