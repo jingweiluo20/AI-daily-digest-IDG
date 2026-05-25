@@ -3,13 +3,12 @@
 
 一个 AI 驱动的每日信息聚合工具，整合国内头部公众号和海外 AI builders 的最新动态，生成结构化的中文日报。
 
-**理念：** 追踪真正在做产品、有独立见解的人，过滤噪音。
 
 ## 你会得到什么
 
 一份结构清晰的中文日报，包含：
 
-- 5 个国内头部 AI 公众号的最新文章（晚点LatePost、硅基观察Pro、Founder Park、投资实习所、海外独角兽）
+- 国内头部 AI 公众号的最新文章（大模型厂商官方公众号、晚点LatePost、硅基观察Pro、Founder Park等三方公众号）
 - 25+ 位海外 AI builders 在 X/Twitter 上的关键观点和洞察（Swyx、Kevin Weil、Andrej Karpathy 等）
 - 顶级 AI 播客新节目的精华摘要
 - AI 公司官方博客的完整文章（Anthropic Engineering、Claude Blog）
@@ -18,7 +17,7 @@
 
 ## 快速开始（Skill 模式）
 
-作为 Claude Code Skill 使用，无需任何 API key。
+作为 Claude Code Skill 使用。
 
 ### 安装
 
@@ -120,17 +119,11 @@ Skill 会：
 
 ## 工作原理
 
-### Skill 模式（交互式）
 1. 用户在 Claude Code 中输入 `/ai-daily-digest`
 2. Skill 实时抓取公开 RSS（公众号文章）和公开 JSON feed（AI builders 推文）
 3. Claude 将原始内容生成结构化中文日报
 4. 日报直接展示在对话中，也可推送到飞书
 
-### GitHub Actions 模式（自动化）
-1. 定时任务每天 UTC 0:00（北京时间约 8:00）触发
-2. 脚本抓取所有信源，发送给大模型进行摘要
-3. 日报通过 Webhook 推送到飞书群
-4. Markdown 文件保存到仓库 `digests/` 文件夹
 
 ## 系统要求
 
@@ -138,13 +131,6 @@ Skill 会：
 - Claude Code（或类似 AI agent）
 - 网络连接
 
-仅此而已，不需要任何 API key。
-
-### GitHub Actions 模式
-- 本仓库的 Fork 副本
-- 大模型 API key（GLM、DeepSeek 或任何 OpenAI 兼容 API）
-- 飞书 Webhook URL
-- （可选）自行部署的 we-mp-rss 用于微信公众号 RSS
 
 ## 隐私与安全
 
@@ -152,7 +138,3 @@ Skill 会：
 - **GitHub Actions 模式：** API key 和 Webhook 存储在 GitHub Secrets 中——加密且对任何人不可见，包括仓库协作者。
 - Skill 只读取公开内容（公开的公众号文章、推文、博客文章）。
 - 每个用户的配置完全隔离，互不影响。
-
-## 许可证
-
-MIT
