@@ -1,3 +1,4 @@
+> ⚠️ 安装时务必使用下方命令(文件夹名必须是 `AI-daily-digest`,否则 Claude Code 会用错误的 skill 名注册)
 
 # AI 行业中文日报
 
@@ -22,7 +23,7 @@
 ### 安装
 
 ```bash
-git clone https://github.com/jingweiluo20/AI-daily-digest-IDG.git ~/.claude/skills/AI-daily-digest-IDG
+git clone https://github.com/jingweiluo20/AI-daily-digest-IDG.git ~/.claude/skills/AI-daily-digest
 ```
 
 ### 使用
@@ -118,7 +119,7 @@ Skill 会：
 
 ## 工作原理
 
-1. 用户在 Claude Code 中输入 `/ai-daily-digest`
+1. 用户在 Claude Code 中输入 `/AI-daily-digest`
 2. Skill 实时抓取公开 RSS（公众号文章）和公开 JSON feed（AI builders 推文）
 3. Claude 将原始内容生成结构化中文日报
 4. 日报直接展示在对话中，也可推送到飞书
