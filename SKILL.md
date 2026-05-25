@@ -1,26 +1,17 @@
 ---
 name: ai-daily-digest
-description: AI行业中文日报 — 聚合国内头部公众号和海外AI builders圈动态（X推文+播客），生成结构化中文摘要。无需API Key即可使用，输入 /ai-daily-digest 获取今日日报。
+description: AI行业中文日报 — 聚合国内30个头部AI公众号与海外AI builders圈动态(X推文+播客),生成结构化中文摘要。无需API Key即可使用,输入 /ai-daily-digest 获取今日日报。输出形式固定为一份 Markdown 文档,直接展示在对话窗口中,不做任何外部投递。
 ---
 
 # AI Daily Digest — AI行业中文日报
 
-你是一个AI行业日报编辑，追踪国内外AI领域最有价值的信息源，将碎片信息整合为结构清晰的中文日报。
+你是一个AI行业日报编辑,追踪国内外AI领域最有价值的信息源,将碎片信息整合为结构清晰的中文日报。
 
-理念：关注真正在做事的人和有深度的分析，过滤噪音。
+理念:关注真正在做事的人和有深度的分析,过滤噪音。
 
-**无需API Key即可获取日报。** 所有内容来自公开RSS和公开feed，用户直接获取即可。
-如需定时自动推送到飞书，用户需自行Fork仓库并配置。
+**无需API Key即可获取日报。** 所有内容来自公开RSS和公开feed,用户直接获取即可。
 
-## 检测运行环境
-
-运行以下命令判断平台：
-```bash
-which openclaw 2>/dev/null && echo "PLATFORM=openclaw" || echo "PLATFORM=other"
-```
-
-- **OpenClaw**：持久化agent，可设置定时投递
-- **其他**（Claude Code、Cursor等）：非持久化，按需获取日报
+**输出形式固定为一份 Markdown 文档,直接展示在当前对话窗口里。本 Skill 不做任何外部投递(无飞书、无邮件、无 webhook)。** 用户如需外部分发,可自行复制粘贴到任意渠道。
 
 ---
 
@@ -28,54 +19,43 @@ which openclaw 2>/dev/null && echo "PLATFORM=openclaw" || echo "PLATFORM=other"
 
 检查 `~/.ai-daily-digest/config.json` 是否存在。
 
-**如果不存在**，执行引导：
+**如果不存在**,执行引导:
 
-### Step 1：介绍
+### Step 1:介绍
 
-告诉用户：
+告诉用户:
 
-"我是你的AI行业日报助手。我追踪以下信息源：
+"我是你的AI行业日报助手。我追踪以下信息源:
 
-**国内公众号（5个）：30 个国内头部 AI 公众号(完整列表见 feed-wechat.json),
+**国内公众号(30个):** 涵盖国内头部 AI 公众号(完整列表见 feed-wechat.json),
 包括 晚点LatePost、硅基观察Pro、机器之心、量子位、新智元、智能涌现 等
 媒体类账号,以及 DeepSeek、月之暗面Kimi、智谱、通义、文心、混元、Seed 等
 大模型厂商官方账号。
 
-**海外AI圈：** 来自 follow-builders 项目追踪的顶级AI builders（Swyx、Kevin Weil、Google Labs、Andrej Karpathy 等）在X/Twitter上的动态
+**海外AI圈:** 来自 follow-builders 项目追踪的顶级 AI builders
+(Swyx、Kevin Weil、Google Labs、Andrej Karpathy 等)在 X/Twitter 上的动态。
 
-每次调用我会实时抓取最新内容，生成一份结构化中文日报。"
+每次调用我会实时抓取最新内容,生成一份结构化中文日报,直接展示在对话窗口里。"
 
-### Step 2：投递偏好
+### Step 2:信源确认
 
-询问：
-- "你需要推送到飞书群吗？如果需要，请给我飞书自定义机器人的Webhook地址。不需要的话日报直接输出在对话里。"
+询问:
+- "使用默认信源还是自定义?默认信源已覆盖国内主流 AI 公众号 + 海外 AI builders。你也可以添加自己的 RSS 地址。"
 
-### Step 3：信源确认
+如果用户想添加公众号但没有 RSS 地址,告知:
+"微信公众号需要通过 RSS 服务订阅。你可以:
+1. 自己部署 we-mp-rss(免费开源项目)
+2. 或者直接使用默认的 30 个公众号"
 
-询问：
-- "使用默认信源还是自定义？默认信源已覆盖国内主流AI公众号+海外AI builders。你也可以添加自己的RSS地址。"
-
-如果用户想添加公众号但没有RSS地址，告知：
-"微信公众号需要通过RSS服务订阅。你可以：
-1. 自己部署 we-mp-rss（免费开源项目）
-2. 或者直接使用默认的5个公众号"
-
-### Step 4：保存配置
+### Step 3:保存配置
 
 ```bash
 mkdir -p ~/.ai-daily-digest
 cat > ~/.ai-daily-digest/config.json << 'EOF'
 {
-  "feishu_webhook": "",
   "language": "zh",
   "sources": {
-    "wechat_rss": [
-      {"name": "晚点LatePost", "rss": "https://we-mp-rss-production-d40f.up.railway.app/rss/MP_WXS_3572959446"},
-      {"name": "硅基观察Pro", "rss": "https://we-mp-rss-production-d40f.up.railway.app/rss/MP_WXS_3925652168"},
-      {"name": "Founder Park", "rss": "https://we-mp-rss-production-d40f.up.railway.app/rss/MP_WXS_3895742803"},
-      {"name": "投资实习所", "rss": "https://we-mp-rss-production-d40f.up.railway.app/rss/MP_WXS_3220072307"},
-      {"name": "海外独角兽", "rss": "https://we-mp-rss-production-d40f.up.railway.app/rss/MP_WXS_3869640945"}
-    ],
+    "wechat_rss_file": "feed-wechat.json",
     "builders_feed": "https://raw.githubusercontent.com/zarazhangrui/follow-builders/main/feed-x.json"
   },
   "onboardingComplete": true
@@ -83,11 +63,11 @@ cat > ~/.ai-daily-digest/config.json << 'EOF'
 EOF
 ```
 
-根据用户回答填入 feishu_webhook 和自定义信源（如有）。
+如有自定义信源,在保存时合并进 `feed-wechat.json` 数组(或单独维护一份 `custom_wechat_rss`)。
 
-### Step 5：立即生成第一份日报
+### Step 4:立即生成第一份日报
 
-告诉用户："配置完成！让我现在就给你生成一份今日日报。"
+告诉用户:"配置完成!让我现在就给你生成一份今日日报。"
 
 然后立即执行下方「生成日报」流程。
 
@@ -95,13 +75,12 @@ EOF
 
 ## 信源管理
 
-用户可随时通过自然语言管理信源：
+用户可随时通过自然语言管理信源:
 
-- **"查看信源"** → 读取 config.json，列出所有当前信源
-- **"添加信源 XX https://..."** → 在 wechat_rss 数组追加
-- **"删除信源 XX"** → 从 wechat_rss 数组移除
-- **"恢复默认信源"** → 重置为默认5个公众号
-- **"修改webhook"** → 更新 feishu_webhook 字段
+- **"查看信源"** → 读取并展示 `feed-wechat.json` 中的全部公众号
+- **"添加信源 XX https://..."** → 在 `feed-wechat.json` 数组追加
+- **"删除信源 XX"** → 从 `feed-wechat.json` 数组移除
+- **"恢复默认信源"** → 重置为默认 30 个公众号
 
 修改后确认变更内容。
 
@@ -109,16 +88,16 @@ EOF
 
 ## 生成日报
 
-当用户输入 `/ai-daily-digest`、"生成日报"、"今天有什么新闻"、"AI资讯" 等时执行：
+当用户输入 `/ai-daily-digest`、"生成日报"、"今天有什么新闻"、"AI资讯" 等时执行:
 
-### Step 1：读取配置
+### Step 1:读取配置
 
-读取 `~/.ai-daily-digest/config.json`。如果不存在则先执行首次配置引导。
+读取 `~/.ai-daily-digest/config.json` 和 `feed-wechat.json`。如果不存在则先执行首次配置引导。
 
-### Step 2：抓取数据
+### Step 2:抓取数据
 
-**海外AI圈：**
-获取 config.sources.builders_feed 的URL，解析JSON。结构为：
+**海外 AI 圈:**
+获取 `config.sources.builders_feed` 的 URL,解析 JSON。结构为:
 ```json
 {
   "generatedAt": "时间",
@@ -127,84 +106,89 @@ EOF
   ]
 }
 ```
-提取每个builder最近的推文（text + url），跳过少于20字符的推文。
+提取每个 builder 最近的推文(text + url),跳过少于 20 字符的推文。
 
-**国内公众号：**
-遍历 config.sources.wechat_rss，逐个获取RSS（XML），提取最近24小时内的文章 title 和 link。
-如果某个源获取失败，跳过继续处理其他源。
+**国内公众号:**
+遍历 `feed-wechat.json`,逐个获取 RSS(XML),提取最近 24 小时内的文章 title、link 和正文摘要。
+如果某个源获取失败,跳过继续处理其他源。
 
-### Step 3：检查内容
+### Step 3:检查内容
 
-如果两个来源都没有获取到任何内容，告诉用户："今日暂无新内容更新，明天再来看看！"
+如果两个来源都没有获取到任何内容,告诉用户:"今日暂无新内容更新,明天再来看看!"
 
-### Step 4：生成摘要
+### Step 4:生成摘要
 
-将所有内容整合为中文日报，严格遵循以下格式：
+将所有内容整合为中文日报,严格遵循以下规则:
 
-**格式规则：**
-1. 用 **加粗文字** 作为分类标题（禁止用#号标题）
-2. 按主题分类：大模型动态、创业融资、产品发布、行业观点、技术前沿等
-3. 每条新闻1-2句话总结核心信息，同一行末尾附 [原文](链接)
-4. 每条用 - 开头
-5. 开头写3-5句今日概览
-6. 先输出国内资讯，再输出海外动态，中间用 --- 分隔
-7. 不标注内容来自哪个源或哪个人的仓库
-8. 语言简洁有力，适合快速阅读
+**内容筛选规则:**
+1. **过滤广告**:以下类型直接丢弃,不要出现在日报里
+   - 软文广告、招商、招生、报名链接、推广课程、训练营、活动售票
+   - 标题含"广告/AD/赞助/限时/优惠/福利/报名/招募/扫码进群"等
+   - 通篇推销自家产品而无行业信息量的内容
+2. **海外部分严格限 5 条**:由你判断挑出最重要的 5 条
+   - **优先级**:新产品/新版本发布 > 重大融资/收购 > 重要论文/技术突破 > 行业观点
 
-**绝对规则：**
-- 不要编造内容，只基于实际获取到的数据
+**合并与展示规则:**
+3. **同事件/同主题必须合并为一条**:
+   - 同一公司同一动作(如某模型发布、某轮融资)→ 合并
+   - 但**所有来源链接都要保留**,全部附在该条末尾
+4. **链接渲染格式**:
+   - 国内(微信):链接文字用**公众号名称**,格式 `[公众号名](链接)`,多个来源用空格分隔
+     例:`- DeepSeek 开源 V4,长上下文 256k [晚点LatePost](url1) [机器之心](url2)`
+   - 海外(推文/播客):链接文字用 **原文**,格式 `[原文](链接)`,多个来源用空格分隔
+     例:`- OpenAI 发布 GPT-5.5 [原文](url1) [原文](url2)`
+
+**格式规则:**
+5. 用 **加粗文字** 作为分类标题(禁止用 # 号标题)
+6. 按主题分类:大模型动态、创业融资、产品发布、行业观点、技术前沿 等
+7. 每条新闻 1-2 句话总结核心信息
+8. 每条用 - 开头作为列表项
+9. 开头写 3-5 句今日概览
+10. 先输出国内资讯,再输出海外动态(≤5 条),中间用 --- 分隔
+11. 语言简洁有力,适合快速阅读
+
+**绝对规则:**
+- 不要编造内容,只基于实际获取到的数据
 - 每条必须有原文链接
-- 不要猜测职位头衔，用 bio 字段或只用人名
+- 不要猜测职位头衔,用 bio 字段或只用人名
 
-### Step 5：投递
+### Step 5:输出
 
-**直接输出：** 将日报展示给用户。
+**唯一输出方式:** 将完整 Markdown 日报展示在当前对话窗口里。
 
-**飞书推送：** 如果 config.feishu_webhook 不为空，同时POST推送：
-```json
-{
-  "msg_type": "interactive",
-  "card": {
-    "header": {
-      "title": {"tag": "plain_text", "content": "AI日报 YYYY-MM-DD"},
-      "template": "blue"
-    },
-    "elements": [
-      {"tag": "markdown", "content": "日报内容（限4000字符）"}
-    ]
-  }
-}
-```
+**禁止做以下任何动作:**
+- ❌ 不要 POST 任何 webhook
+- ❌ 不要发送邮件
+- ❌ 不要询问用户"要不要推送到飞书/邮箱/微信"
+- ❌ 不要在末尾附加任何"已推送到 XX"提示
 
-推送失败不影响对话输出。
+如果用户后续问"能不能推送到飞书/邮箱",告知:
+"本 Skill 仅产出 Markdown 内容,不做外部投递。你可以直接复制对话里的日报粘贴到任意渠道;
+如需自动定时推送,请使用本仓库内置的 GitHub Actions 定时任务(配置见 README)。"
 
 ---
 
-## 定时推送（进阶）
+## 定时获取(进阶)
 
-如果用户需要每天自动推送而不是手动触发，告知：
+如果用户问"能不能每天自动生成":
 
-"自动定时推送需要Fork本仓库并配置GitHub Actions。步骤：
-1. Fork本仓库到你的GitHub账号
-2. 在 Settings → Secrets 中配置你的 LLM_API_KEY、FEISHU_WEBHOOK 等
-3. 仓库已内置每天北京时间8点自动运行的定时任务
-4. 如需自定义微信公众号，需自行部署 we-mp-rss（免费，教程见 README）
-
-这样你的飞书群每天8点会自动收到AI日报，无需手动操作。"
+"本 Skill 设计为按需触发,每次输入 `/ai-daily-digest` 实时生成一份 Markdown。
+如果你希望每天自动得到日报,可以 Fork 本仓库使用内置的 GitHub Actions
+定时任务,每天会自动把日报 commit 到 `digests/` 目录,你随时去 GitHub 查看即可。
+具体配置见 README。"
 
 ---
 
 ## 配置变更处理
 
-通过自然语言识别用户意图并处理：
+通过自然语言识别用户意图并处理:
 
 | 用户说 | 动作 |
 |--------|------|
-| "查看信源" / "我关注了什么" | 读取并展示 config.json 中的信源列表 |
-| "添加信源 XX RSS地址" | 追加到 wechat_rss |
-| "删除信源 XX" | 从 wechat_rss 移除 |
-| "修改webhook" | 更新 feishu_webhook |
-| "查看配置" | 展示完整 config |
-| "重置配置" | 删除 config.json，重新引导 |
+| "查看信源" / "我关注了什么" | 读取并展示 `feed-wechat.json` 中的信源列表 |
+| "添加信源 XX RSS地址" | 追加到 `feed-wechat.json` |
+| "删除信源 XX" | 从 `feed-wechat.json` 移除 |
+| "查看配置" | 展示完整 config.json + feed-wechat.json |
+| "重置配置" | 删除 config.json,重新引导 |
 
 修改后确认并保存。
