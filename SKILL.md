@@ -1,6 +1,6 @@
 ---
 name: ai-daily-digest
-description: AI行业中文日报 — 聚合国内头部公众号（晚点LatePost、硅基观察Pro、Founder Park、投资实习所、海外独角兽）和海外AI builders圈动态（X推文+播客），生成结构化中文摘要。无需API Key即可使用，输入 /ai-daily-digest 获取今日日报。
+description: AI行业中文日报 — 聚合国内头部公众号和海外AI builders圈动态（X推文+播客），生成结构化中文摘要。无需API Key即可使用，输入 /ai-daily-digest 获取今日日报。
 ---
 
 # AI Daily Digest — AI行业中文日报
@@ -36,7 +36,10 @@ which openclaw 2>/dev/null && echo "PLATFORM=openclaw" || echo "PLATFORM=other"
 
 "我是你的AI行业日报助手。我追踪以下信息源：
 
-**国内公众号（5个）：** 晚点LatePost、硅基观察Pro、Founder Park、投资实习所、海外独角兽
+**国内公众号（5个）：30 个国内头部 AI 公众号(完整列表见 feed-wechat.json),
+包括 晚点LatePost、硅基观察Pro、机器之心、量子位、新智元、智能涌现 等
+媒体类账号,以及 DeepSeek、月之暗面Kimi、智谱、通义、文心、混元、Seed 等
+大模型厂商官方账号。
 
 **海外AI圈：** 来自 follow-builders 项目追踪的顶级AI builders（Swyx、Kevin Weil、Google Labs、Andrej Karpathy 等）在X/Twitter上的动态
 
