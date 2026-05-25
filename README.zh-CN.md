@@ -69,7 +69,7 @@ Skill 会：
 
 ## 默认信源
 
-### 微信公众号（5个）
+### 微信公众号(30个)
 
 | 公众号 | 方向 |
 |--------|------|
@@ -78,6 +78,31 @@ Skill 会：
 | Founder Park | 科技创业洞察 |
 | 投资实习所 | 产品视角趋势分析 |
 | 海外独角兽 | 全球科技公司研究 |
+| 智能涌现 | AI 行业观察 |
+| 新智元 | AI 资讯与研究 |
+| AI科技评论 | AI 技术评论 |
+| 极客公园 | 科技文化与产品 |
+| 机器之心 | AI 研究资讯 |
+| 量子位 | AI 行业资讯 |
+| Datawhale | 开源数据科学社区 |
+| 深度学习自然语言处理 | NLP 研究前沿 |
+| PaperWeekly | AI 论文推荐 |
+| 赛博禅心 | AI 产品思考 |
+| 数字生命卡兹克 | AI 产品评测 |
+| 华为云 | 华为云官方 |
+| 商汤科技SenseTime | 商汤官方 |
+| 百度文心 | 百度文心官方 |
+| 腾讯混元 | 腾讯混元官方 |
+| 字节跳动Seed | 字节 Seed 官方 |
+| 豆包 | 豆包官方 |
+| 百川智能 | 百川智能官方 |
+| MiniMax稀宇科技 | MiniMax 官方 |
+| 阶跃星辰 | 阶跃星辰官方 |
+| 月之暗面Kimi | 月之暗面 Kimi 官方 |
+| 智谱 | 智谱 AI 官方 |
+| 通义实验室 | 阿里通义实验室 |
+| 千问大模型 | 通义千问官方 |
+| DeepSeek | DeepSeek 官方 |
 
 ### X 上的 AI 建造者（25位）
 [Andrej Karpathy](https://x.com/karpathy), [Swyx](https://x.com/swyx), [Josh Woodward](https://x.com/joshwoodward), [Kevin Weil](https://x.com/kevinweil), [Peter Yang](https://x.com/petergyang), [Nan Yu](https://x.com/thenanyu), [Madhu Guru](https://x.com/realmadhuguru), [Amanda Askell](https://x.com/AmandaAskell), [Cat Wu](https://x.com/_catwu), [Thariq](https://x.com/trq212), [Google Labs](https://x.com/GoogleLabs), [Amjad Masad](https://x.com/amasad), [Guillermo Rauch](https://x.com/rauchg), [Alex Albert](https://x.com/alexalbert__), [Aaron Levie](https://x.com/levie), [Ryo Lu](https://x.com/ryolu_), [Garry Tan](https://x.com/garrytan), [Matt Turck](https://x.com/mattturck), [Zara Zhang](https://x.com/zarazhangrui), [Nikunj Kothari](https://x.com/nikunj), [Peter Steinberger](https://x.com/steipete), [Dan Shipper](https://x.com/danshipper), [Aditya Agarwal](https://x.com/adityaag), [Sam Altman](https://x.com/sama), [Claude](https://x.com/claudeai)
