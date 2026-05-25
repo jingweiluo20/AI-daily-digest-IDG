@@ -69,7 +69,7 @@ If you want automatic daily push to Feishu without manual triggering:
 
 ## Default Sources
 
-### WeChat Public Accounts (5)
+### WeChat Public Accounts (30)
 
 | Account | Focus |
 |---------|-------|
@@ -78,6 +78,32 @@ If you want automatic daily push to Feishu without manual triggering:
 | Founder Park | Tech entrepreneurship insights |
 | 投资实习所 | Product-oriented trend analysis |
 | 海外独角兽 | Global tech company research |
+| 智能涌现 | AI industry observation |
+| 新智元 | AI news and research |
+| AI科技评论 | AI tech commentary |
+| 极客公园 | Tech culture and product |
+| 机器之心 | AI research news |
+| 量子位 | AI industry news |
+| 智能涌现 | AI breakthroughs |
+| Datawhale | Open-source data science community |
+| 深度学习自然语言处理 | NLP research |
+| PaperWeekly | AI paper recommendations |
+| 赛博禅心 | AI product reflections |
+| 数字生命卡兹克 | AI product reviews |
+| 华为云 | Huawei Cloud official |
+| 商汤科技SenseTime | SenseTime official |
+| 百度文心 | Baidu ERNIE official |
+| 腾讯混元 | Tencent Hunyuan official |
+| 字节跳动Seed | ByteDance Seed official |
+| 豆包 | Doubao official |
+| 百川智能 | Baichuan AI official |
+| MiniMax稀宇科技 | MiniMax official |
+| 阶跃星辰 | StepFun official |
+| 月之暗面Kimi | Moonshot Kimi official |
+| 智谱 | Zhipu AI official |
+| 通义实验室 | Tongyi Lab (Alibaba) official |
+| 千问大模型 | Qwen official |
+| DeepSeek | DeepSeek official |
 
 ### AI Builders on X (25)
 [Andrej Karpathy](https://x.com/karpathy), [Swyx](https://x.com/swyx), [Josh Woodward](https://x.com/joshwoodward), [Kevin Weil](https://x.com/kevinweil), [Peter Yang](https://x.com/petergyang), [Nan Yu](https://x.com/thenanyu), [Madhu Guru](https://x.com/realmadhuguru), [Amanda Askell](https://x.com/AmandaAskell), [Cat Wu](https://x.com/_catwu), [Thariq](https://x.com/trq212), [Google Labs](https://x.com/GoogleLabs), [Amjad Masad](https://x.com/amasad), [Guillermo Rauch](https://x.com/rauchg), [Alex Albert](https://x.com/alexalbert__), [Aaron Levie](https://x.com/levie), [Ryo Lu](https://x.com/ryolu_), [Garry Tan](https://x.com/garrytan), [Matt Turck](https://x.com/mattturck), [Zara Zhang](https://x.com/zarazhangrui), [Nikunj Kothari](https://x.com/nikunj), [Peter Steinberger](https://x.com/steipete), [Dan Shipper](https://x.com/danshipper), [Aditya Agarwal](https://x.com/adityaag), [Sam Altman](https://x.com/sama), [Claude](https://x.com/claudeai)
