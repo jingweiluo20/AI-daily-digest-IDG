@@ -22,8 +22,7 @@
 ### 安装
 
 ```bash
-git clone https://github.com/jingweiluo20/AI-daily-digest-IDG.git ~/.claude/skills/ai-daily-digest
-cd ~/.claude/skills/ai-daily-digest/scripts && npm install
+git clone https://github.com/jingweiluo20/AI-daily-digest-IDG.git ~/.claude/skills/AI-daily-digest-IDG
 ```
 
 ### 使用
