@@ -1,6 +1,6 @@
 ---
-name: AI-daily-digest-IDG
-description: AI行业中文日报 — 聚合国内30个头部AI公众号与海外AI builders圈动态(X推文+播客),生成结构化中文摘要。无需API Key即可使用,输入 /ai-daily-digest 获取今日日报。输出形式固定为一份 Markdown 文档,直接展示在对话窗口中,不做任何外部投递。
+name: AI-daily-digest
+description: AI行业中文日报 — 聚合国内30个头部AI公众号与海外AI builders圈动态(X推文+播客),生成结构化中文摘要。无需API Key即可使用,输入 /AI-daily-digest 获取今日日报。输出形式固定为一份 Markdown 文档,直接展示在对话窗口中,不做任何外部投递。
 ---
 
 # AI Daily Digest — AI行业中文日报
