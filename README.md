@@ -1,4 +1,3 @@
-[English](README.md) | **中文**
 
 # AI 行业中文日报
 
